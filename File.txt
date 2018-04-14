@@ -1,0 +1,34 @@
+do {
+    
+    wait(wrt);  
+   
+
+    signal(wrt); 
+
+} while(true);
+ 
+Reader Process :
+
+do {
+    
+
+   wait(mutex);
+
+  
+   read_count++;                  
+
+   if (read_count==1)     
+      wait(wrt);                    
+
+   signal(mutex);                   
+
+
+   wait(mutex);   
+
+   read_count--;
+   if (read_count == 0) 
+       signal(wrt);         
+
+   signal(mutex);
+
+} while(true);
